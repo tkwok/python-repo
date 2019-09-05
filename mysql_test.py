@@ -34,7 +34,7 @@ def connect():
     elif err.errno == errorcode.ER_BAD_DB_ERROR:
       print("Database does not exist")
     else:
-      print(err)
+      print("Error".format(err))
   else:
     db_connection.close()
 
