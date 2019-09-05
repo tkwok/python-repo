@@ -7,3 +7,5 @@ echo ${array[*]}
 
 newarr=("${array[*]}")
 echo $newarr
+
+(( x = 3 + 12 )); echo $x

@@ -17,16 +17,9 @@ def connect():
     db_connection = mysql.connector.connect(**db_config)
     cursor = db_connection.cursor()
     cursor.execute("SELECT * FROM books")
-    for row in iterate_row(cursor, 10):
-      print(row)
-    # rows = cursor.fetchall()
-    # print('Total row(s) selected:', cursor.rowcount)
-    # for row in rows:
-      # print(row)
-    # row = cursor.fetchone()
-    # while row is not None:
-    #   print(row)
-    #   row = cursor.fetchone()
+    # for row in iterate_row(cursor, 10):
+    #   print(type(row))
+    wrapStringInHTML("Python Output", "https://www.google.com", iterate_row(cursor, 10))
 
   except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -37,6 +30,41 @@ def connect():
       print("Error".format(err))
   else:
     db_connection.close()
+
+def wrapStringInHTML(program, url, body):
+  import datetime
+  from webbrowser import open_new_tab
+
+  now = datetime.datetime.today().strftime("%Y/%m/%d-%H%:M:%S")
+  filename = program + '.html'
+  f = open(filename,'w')
+
+  for row in body:
+    content = "<li id='listitem clearfix'><div class='listitem_data'>{}</div><div class='listitem_task'>{}</div></li>".format(row[0], row[1])
+    print(content)
+
+  wrapper = """<html>
+  <head>
+  <title>%s output - %s</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body><p>URL: <a href=\"%s\">%s</a></p>
+  <ul id="sortable_list">
+    <li id="listitem clearfix header">
+      <div class="listitem_data">Title</div>
+      <div class="listitem_task">Pages</div>
+    </li>
+  %s
+  </ul>
+  </body>
+  </html>"""
+
+  whole = wrapper % (program, now, url, url, content)
+  f.write(whole)
+  f.close()
+
+  filename = 'file:///Users/tk/Documents/Github/python-repo/' + filename
+  open_new_tab(filename)
 
 if __name__ == '__main__':
   connect()
