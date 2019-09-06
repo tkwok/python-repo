@@ -2,6 +2,10 @@
   overflow: auto;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #sortable_list{
 	list-style: none;
 	margin: 0;

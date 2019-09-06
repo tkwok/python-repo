@@ -19,7 +19,7 @@ def connect():
     cursor.execute("SELECT * FROM books")
     # for row in iterate_row(cursor, 10):
     #   print(type(row))
-    wrapStringInHTML("Python Output", "https://www.google.com", iterate_row(cursor, 10))
+    wrapStringInHTML("python-output", "https://www.google.com", iterate_row(cursor, 10))
 
   except mysql.connector.Error as err:
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
@@ -50,10 +50,6 @@ def wrapStringInHTML(program, url, body):
   </head>
   <body><p>URL: <a href=\"%s\">%s</a></p>
   <ul id="sortable_list">
-    <li id="listitem clearfix header">
-      <div class="listitem_data">Title</div>
-      <div class="listitem_task">Pages</div>
-    </li>
   %s
   </ul>
   </body>
