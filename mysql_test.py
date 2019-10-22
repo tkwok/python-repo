@@ -50,6 +50,10 @@ def wrapStringInHTML(program, url, body):
   </head>
   <body><p>URL: <a href=\"%s\">%s</a></p>
   <ul id="sortable_list">
+    <li id="listitem clearfix header">
+      <div class="listitem_data">Title</div>
+      <div class="listitem_task">Pages</div>
+    </li>
   %s
   </ul>
   </body>
